@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>vue start!</h1>
+
+  <!-- v-bind로 Vue의 data를 넘겨줄 수 있음 -->
+  <div id="app" v-bind:class="message" style="font-size: 10px;">
+    {{ message }}
+    {{ name }}
+    <!-- 조건문 -->
+    <h3 v-if="seen">true면 보이는 부분</h3>
+    <!-- 반복문 -->
+    <li v-for="menu in menus">{{ menu }}</li>
+    <!-- 이벤트 리스너 역할 : v-on:이벤트="함수명" -->
+    <button v-on:click="popup">click!!</button>
+    <!-- 양방향 연결 -->
+    <input v-model="message">
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'hello',
+        name: 'kyw',
+        seen: true,
+        menus: ['짜장', '짬뽕', '탕수육'],
+      },
+      methods: {
+        // function 키워드 사용 시와 화살표 함수 정의 시에 this가 가르키는게 다름
+        // this 활용 시 제대로 가르키는지 찍어보는 것이 권장됨
+        popup: function() {
+          alert('팝업나옴')
+        }
+      }
+    })
+  </script>
+
+</body>
+</html>

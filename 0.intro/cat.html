@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1>Cat Image</h1>
+    <img v-bind:src="caturl" alt=""><br/>
+    <button @click="changeCat">야옹이 변경</button>
+    <hr/>
+    <!-- 사진 추가 기능 구현 -->
+    <h1>Dog Image</h1>
+    <div id="dogs">
+			<ul>
+				<li v-for="dogurl in dogurls"><img v-bind:src="dogurl" alt=""></li>
+			</ul>
+    </div><br/>
+		<button @click="addDog">멍멍이 추가</button>
+		<h4 v-if="state">아직 멍멍이가 없습니다.</h4>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        caturl: 'https://i.pinimg.com/236x/17/a6/6c/17a66c5622530241fa91bf9e15bb66d1.jpg',
+				dogurls: [],
+				state: true,
+      },
+      methods: {
+        changeCat() {
+          const catApi = 'https://api.thecatapi.com/v1/images/search'
+          axios.get(catApi)
+            .then((res) => {
+              this.caturl = res.data[0].url
+            })
+        },
+        addDog() {
+          const dogApi = 'https://dog.ceo/api/breeds/image/random'
+          axios.get(dogApi)
+            .then((res) => {
+              dogSrc = res.data.message
+							this.dogurls.push(dogSrc)
+							this.state = false
+            })
+        }
+      },
+    })
+  </script>
+</body>
+</html>
